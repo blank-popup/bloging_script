@@ -657,3 +657,98 @@ The output is intended to be easy to copy into:
 - Development notes
 
 ---
+
+# Git Initial Setup and GitHub Repository Configuration
+
+The following commands configure Git user information, set the commit message template, rename the default branch, connect the local repository to GitHub, and push the repository to the remote server.
+
+## 1. Configure the Commit Message Template
+
+Set `.gitmessage.txt` as the commit message template:
+
+```powershell
+git config commit.template .gitmessage.txt
+```
+
+To check the configured template:
+
+```powershell
+git config commit.template
+```
+
+## 2. Configure User Information
+
+Set the name and email address used for Git commits:
+
+```powershell
+git config user.email "useremail@example.com"
+git config user.name "username"
+```
+
+Check the configured values:
+
+```powershell
+git config user.email
+git config user.name
+```
+
+## 3. Rename the Default Branch
+
+Rename the current branch to `master`:
+
+```powershell
+git branch -M master
+```
+
+> `main` is also commonly used as the default branch name. Use the branch name that matches your project or repository convention.
+
+## 4. Add the GitHub Remote Repository
+
+Connect the local repository to the GitHub repository:
+
+```powershell
+git remote add origin https://github.com/id/repository.git
+```
+
+Check the configured remote:
+
+```powershell
+git remote -v
+```
+
+## 5. Push the Local Repository to GitHub
+
+Push the `master` branch to GitHub and set it as the upstream branch:
+
+```powershell
+git push -u origin master
+```
+
+After the upstream branch has been configured, subsequent pushes can usually be performed with:
+
+```powershell
+git push
+```
+
+## Complete Example
+
+```powershell
+# Commit message template
+git config commit.template .gitmessage.txt
+
+# Check the commit message template
+git config commit.template
+
+# Git user information
+git config user.email "useremail@example.com"
+git config user.name "username"
+
+# Rename the current branch
+git branch -M master
+
+# Add the GitHub remote repository
+git remote add origin https://github.com/id/repository.git
+
+# Push the repository to GitHub
+git push -u origin master
+```

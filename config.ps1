@@ -87,3 +87,46 @@ $ShowPowerShellVersion = $true
 
 # Show operating system information.
 $ShowOperatingSystem = $true
+
+
+# ------------------------------------------------------------
+# ZIP Archive
+# ------------------------------------------------------------
+
+# Directories excluded from czip.
+#
+# These directories are not included in the ZIP archive.
+$ZipExcludeDirectories = @(
+    ".git"
+    ".venv"
+    "__pycache__"
+    ".pytest_cache"
+    ".ruff_cache"
+    ".mypy_cache"
+    "node_modules"
+    "dist"
+    "build"
+)
+
+# Files excluded from czip.
+#
+# PowerShell wildcard patterns can be used.
+$ZipExcludeFiles = @(
+    "*.pyc"
+    "*.pyo"
+    "*.log"
+    ".DS_Store"
+)
+
+# ZIP output directory.
+#
+# The default value creates the ZIP file in the parent directory of the project root.
+$ZipOutputDirectory = (Split-Path $ProjectRoot -Parent)
+# $ZipOutputDirectory = "D:\WorkSpace"
+
+# ZIP output file name.
+#
+# The default name is based on the project directory name.
+# Example:
+#   D:\Project\ahaapi -> ahaapi.zip
+$ZipOutputName = "$(Split-Path $ProjectRoot -Leaf).zip"

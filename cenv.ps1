@@ -63,13 +63,43 @@ function Get-CommandPath {
 }
 
 
+function ConvertTo-DisplayPath {
+    param(
+        [string]$Path
+    )
+
+    if ([string]::IsNullOrEmpty($Path)) {
+        return $Path
+    }
+
+    $DisplayPath = $Path
+
+    foreach ($Rule in $PathRedactions) {
+
+        if (
+            $Rule.ContainsKey("Pattern") -and
+            $Rule.ContainsKey("Replacement")
+        ) {
+            $DisplayPath = [regex]::Replace(
+                $DisplayPath,
+                $Rule.Pattern,
+                $Rule.Replacement,
+                [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+            )
+        }
+    }
+
+    return $DisplayPath
+}
+
+
 # ============================================================
 # Project
 # ============================================================
 
 Write-Output "Project"
 Write-Output "-------"
-Write-Output "Root: $ProjectRoot"
+Write-Output "Root: $(ConvertTo-DisplayPath $ProjectRoot)"
 Write-Output ""
 
 
@@ -81,11 +111,17 @@ if ($ShowOperatingSystem) {
 
     $os = Get-CimInstance Win32_OperatingSystem
 
+    $Architecture = switch -Regex ($os.OSArchitecture) {
+        "64"   { "64-bit"; break }
+        "86"   { "32-bit"; break }
+        default { "Unknown" }
+    }
+
     Write-Output "Operating System"
     Write-Output "----------------"
     Write-Output "Name: $($os.Caption)"
     Write-Output "Version: $($os.Version)"
-    Write-Output "Architecture: $($os.OSArchitecture)"
+    Write-Output "Architecture: $Architecture"
     Write-Output ""
 }
 
@@ -128,7 +164,7 @@ elseif ($SystemPython -like "*\WindowsApps\python.exe") {
 
     Write-Output "System:"
     Write-Output "  Status: Windows App Execution Alias"
-    Write-Output "  Command: $SystemPython"
+    Write-Output "  Command: $(ConvertTo-DisplayPath $SystemPython)"
 
 }
 else {
@@ -137,7 +173,7 @@ else {
 
     Write-Output "System:"
     Write-Output "  Status: Available"
-    Write-Output "  Command: $SystemPython"
+    Write-Output "  Command: $(ConvertTo-DisplayPath $SystemPython)"
     Write-Output "  Version: $SystemPythonVersion"
 }
 
@@ -155,7 +191,7 @@ if (Test-Path -LiteralPath $VenvPython -PathType Leaf) {
 
     $VenvPythonVersion = Get-ExecutableVersion $VenvPython
 
-    Write-Output "  Path: $VenvPython"
+    Write-Output "  Path: $(ConvertTo-DisplayPath $VenvPython)"
     Write-Output "  Version: $VenvPythonVersion"
 
     if ($env:VIRTUAL_ENV) {
@@ -192,7 +228,7 @@ else {
     $UvVersion = Get-ExecutableVersion $UvPath
 
     Write-Output "Status: Available"
-    Write-Output "Command: $UvPath"
+    Write-Output "Command: $(ConvertTo-DisplayPath $UvPath)"
     Write-Output "Version: $UvVersion"
 
 

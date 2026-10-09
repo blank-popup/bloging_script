@@ -88,6 +88,17 @@ $ShowPowerShellVersion = $true
 # Show operating system information.
 $ShowOperatingSystem = $true
 
+# Replace sensitive path components in cenv output.
+#
+# Pattern supports .NET regular expressions.
+# Replacement is used only for displayed text.
+$PathRedactions = @(
+    @{
+        Pattern     = 'C:\\Users\\[^\\]+'
+        Replacement = 'C:\Users\<user>'
+    }
+)
+
 
 # ------------------------------------------------------------
 # ZIP Archive

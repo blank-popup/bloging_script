@@ -17,6 +17,7 @@ $ProjectRoot = (Get-Location).Path
 $TreeExclude = @(
     # ".git"
     # ".venv"
+    # ".ruff_cache"
     # "__pycache__"
     # ".pytest_cache"
     # ".mypy_cache"
@@ -36,10 +37,10 @@ $TreeExclude = @(
 # $TreeDepth1 = @(
 #     "node_modules"
 # )
-
 $TreeDepth0 = @(
     ".git"
     ".venv"
+    ".ruff_cache"
     "__pycache__"
     ".pytest_cache"
     ".mypy_cache"
@@ -65,6 +66,7 @@ $OutlineExtensions = @(
 $OutlineExclude = @(
     ".git"
     ".venv"
+    ".ruff_cache"
     "__pycache__"
     ".pytest_cache"
     ".mypy_cache"

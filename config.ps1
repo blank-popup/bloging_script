@@ -129,6 +129,8 @@ $ZipExcludeFiles = @(
     "*.pyo"
     "*.log"
     ".DS_Store"
+    ".env"
+    "db.sqlite3"
 )
 
 # ZIP output directory.

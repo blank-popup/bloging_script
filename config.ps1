@@ -39,7 +39,9 @@ $TreeExclude = @(
 # )
 $TreeDepth0 = @(
     ".git"
+    ".vscode"
     ".venv"
+    "log"
     ".ruff_cache"
     "__pycache__"
     ".pytest_cache"
@@ -111,7 +113,9 @@ $PathRedactions = @(
 # These directories are not included in the ZIP archive.
 $ZipExcludeDirectories = @(
     ".git"
+    ".vscode"
     ".venv"
+    "log"
     "__pycache__"
     ".pytest_cache"
     ".ruff_cache"
